@@ -24,8 +24,21 @@ public class CoachService {
         return coachRepository.save(coach);
     }
 
-    public Coach updateCoach(Coach coach){
-        return coachRepository.saveAndFlush(coach);
+    public Coach updateCoach(Long id, Coach coach){
+
+        Coach resultCoach = getCoach(id);
+
+        if (resultCoach != null){
+            resultCoach.setLogin(coach.getLogin());
+            resultCoach.setPassword(coach.getPassword());
+            resultCoach.setName(coach.getName());
+            resultCoach.setClients(coach.getClients());
+            resultCoach.setSportClub(coach.getSportClub());
+            resultCoach.setTrainingList(coach.getTrainingList());
+
+            return coachRepository.saveAndFlush(resultCoach);
+        }
+        return null;
     }
 
     public Coach deleteCoach(Coach coach){

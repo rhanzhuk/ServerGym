@@ -68,11 +68,11 @@ public class Coach {
         this.login = login;
     }
 
-    public String getPessword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPessword(String pessword) {
+    public void setPassword(String pessword) {
         this.password = pessword;
     }
 
