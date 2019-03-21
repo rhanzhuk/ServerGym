@@ -20,14 +20,17 @@ public class Coach {
     @Column (name = "password")
     private String pessword;
 
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
     private SportClub sportClub;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "coach")
+    @Column
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coach")
     private List<Client> clients;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "coach")
+    @Column
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coach")
     List<Training> trainingList;
 
     public Coach(String name, String login, String pessword, SportClub sportClub, List<Client> clients, List<Training> trainingList) {

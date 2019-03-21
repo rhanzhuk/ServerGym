@@ -19,11 +19,14 @@ public class Series {
     @Column(name = "repeats")
     private int repeats;
 
-    @OneToOne(optional = false, mappedBy="series")
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "exercise_id", nullable = false)
     private Exercise exercise;
 
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "id", nullable = false,  insertable = false, updatable = false)
+    @JoinColumn(name = "training_id", nullable = false,  insertable = false, updatable = false)
     private Training training;
 
     public Series(double weight, int count, int repeats, Exercise exercise, Training training) {

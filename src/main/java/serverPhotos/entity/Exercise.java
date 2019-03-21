@@ -22,8 +22,11 @@ public class Exercise {
     private String icon;
     @Column(name = "youTube")
     private String youtubeLink;
-    @OneToOne(optional = false)
-    @JoinColumn(name="id", unique = true, nullable = false, updatable = false)
+
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "exercise")
     private Series series;
 
     public Exercise(String name, String description, String icon, String youtubeLink, Series series) {

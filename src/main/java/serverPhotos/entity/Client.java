@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import serverPhotos.entity.enums.Levels;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Entity
@@ -24,14 +25,16 @@ public class Client {
     @Column(name = "age")
     private int age;
     @Column(name = "email")
+    @Email
     private String email;
     @Column(name = "level")
     private Levels level;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id", nullable = false,  insertable = false, updatable = false)
     private Coach coach;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
+    @Column
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     List<Training> trainingList;
 
     public Client(String name, String login, String password, int age, String email, Levels level, Coach coach, List<Training> trainingList) {

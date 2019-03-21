@@ -20,6 +20,7 @@ public class SportClub {
     @Column(name = "description")
     private String description;
 
+    @Column
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "sportClub")
     private List<Coach> coaches;
 

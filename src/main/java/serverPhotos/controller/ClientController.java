@@ -6,6 +6,7 @@ import serverPhotos.entity.Client;
 import serverPhotos.service.ClientService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class ClientController {
@@ -36,6 +37,11 @@ public class ClientController {
     @DeleteMapping("/client/{id}")
     public void deleteClientById(@PathVariable(value = "id") Long id){
         clientService.deleteClientFromId(id);
+    }
+
+    @GetMapping("/clients")
+    public List<Client> getAllClients(){
+        return clientService.clients();
     }
 
 }

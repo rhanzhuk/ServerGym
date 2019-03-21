@@ -20,11 +20,13 @@ public class Training {
     private List<Series> seriesList;
     @Column(name = "training_date")
     private Date trainingDate;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "id", nullable = false,  insertable = false, updatable = false)
+    @JoinColumn(name = "client_id", nullable = false,  insertable = false, updatable = false)
     private Client client;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "coach_id", nullable = false, insertable = false, updatable = false)
     private Coach coach;
 
     public Training(String name, List<Series> seriesList, Date trainingDate, Client client, Coach coach) {
