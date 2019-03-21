@@ -25,8 +25,18 @@ public class ExerciseService {
         return exerciseRepository.save(exercise);
     }
 
-    public Exercise updateExercise(Exercise exercise){
-        return exerciseRepository.saveAndFlush(exercise);
+    public Exercise updateExercise(Long id, Exercise exercise){
+        Exercise resultExercise = getExercise(id);
+        if (resultExercise != null){
+            resultExercise.setName(exercise.getName());
+            resultExercise.setDescription(exercise.getDescription());
+            resultExercise.setIcon(exercise.getIcon());
+            resultExercise.setSeries(exercise.getSeries());
+            resultExercise.setYoutubeLink(exercise.getYoutubeLink());
+
+            return exerciseRepository.saveAndFlush(exercise);
+        }
+        return null;
     }
 
     public Exercise deleteExercise(Exercise exercise){
