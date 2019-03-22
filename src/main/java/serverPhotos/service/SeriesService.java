@@ -25,8 +25,19 @@ public class SeriesService {
         return seriesRepository.save(series);
     }
 
-    public Series updateSeries(Series series){
-        return seriesRepository.saveAndFlush(series);
+    public Series updateSeries(Long id, Series series){
+        Series resultSeries = getSeries(id);
+        if(resultSeries != null){
+            resultSeries.setExercise(series.getExercise());
+            resultSeries.setCount(series.getCount());
+            resultSeries.setRepeats(series.getRepeats());
+            resultSeries.setTraining(series.getTraining());
+            resultSeries.setWeight(series.getWeight());
+
+            return seriesRepository.saveAndFlush(resultSeries);
+        }
+
+        return null;
     }
 
     public Series deleteSeries(Series series){
