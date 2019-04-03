@@ -25,8 +25,18 @@ public class SportClubService {
         return sportClubRepository.save(sportClub);
     }
 
-    public SportClub updateSportClub(SportClub sportClub){
-        return sportClubRepository.saveAndFlush(sportClub);
+    public SportClub updateSportClub(Long id, SportClub sportClub){
+
+        SportClub resultSportClub = getSportClub(id);
+        if (resultSportClub != null){
+            resultSportClub.setCoaches(sportClub.getCoaches());
+            resultSportClub.setDescription(sportClub.getDescription());
+            resultSportClub.setLocation(sportClub.getLocation());
+            resultSportClub.setName(sportClub.getName());
+
+            return sportClubRepository.saveAndFlush(resultSportClub);
+        }
+        return null;
     }
 
     public SportClub deleteSportClub(SportClub sportClub){

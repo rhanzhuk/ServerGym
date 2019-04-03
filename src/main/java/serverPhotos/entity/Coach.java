@@ -18,7 +18,7 @@ public class Coach {
     @Column(name = "login")
     private String login;
     @Column (name = "password")
-    private String pessword;
+    private String password;
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -33,10 +33,10 @@ public class Coach {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "coach")
     List<Training> trainingList;
 
-    public Coach(String name, String login, String pessword, SportClub sportClub, List<Client> clients, List<Training> trainingList) {
+    public Coach(String name, String login, String password, SportClub sportClub, List<Client> clients, List<Training> trainingList) {
         this.name = name;
         this.login = login;
-        this.pessword = pessword;
+        this.password = password;
         this.sportClub = sportClub;
         this.clients = clients;
         this.trainingList = trainingList;
@@ -68,12 +68,12 @@ public class Coach {
         this.login = login;
     }
 
-    public String getPessword() {
-        return pessword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPessword(String pessword) {
-        this.pessword = pessword;
+    public void setPassword(String pessword) {
+        this.password = pessword;
     }
 
     public SportClub getSportClub() {
@@ -106,7 +106,7 @@ public class Coach {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
-                ", pessword='" + pessword + '\'' +
+                ", password='" + password + '\'' +
                 ", sportClub=" + sportClub +
                 ", clients=" + clients +
                 ", trainingList=" + trainingList +

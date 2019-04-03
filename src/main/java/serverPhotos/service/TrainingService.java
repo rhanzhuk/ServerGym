@@ -25,8 +25,19 @@ public class TrainingService {
         return trainingRepository.save(training);
     }
 
-    public Training updateTraining(Training training){
-        return trainingRepository.saveAndFlush(training);
+    public Training updateTraining(Long id, Training training){
+        Training resultTraining = getTraining(id);
+        if(resultTraining != null){
+            resultTraining.setName(training.getName());
+            resultTraining.setClient(training.getClient());
+            resultTraining.setCoach(training.getCoach());
+            resultTraining.setSeriesList(training.getSeriesList());
+            resultTraining.setTrainingDate(training.getTrainingDate());
+
+            return trainingRepository.saveAndFlush(resultTraining);
+        }
+
+        return null;
     }
 
     public Training deleteTraining(Training training){

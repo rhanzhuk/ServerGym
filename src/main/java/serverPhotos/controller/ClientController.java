@@ -14,7 +14,7 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @GetMapping(path = "/client/{id}")
+    @GetMapping("/client/{id}")
     public Client getClient(@PathVariable(value = "id")Long id) {
         return clientService.getClient(id);
     }
