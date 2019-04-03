@@ -21,10 +21,12 @@ public class Coach {
     private String pessword;
 
 
+    //TODO Mapped ManyToMany
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
     private SportClub sportClub;
 
+    //TODO Mapped ManyToMany
     @Column
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "coach")
     private List<Client> clients;

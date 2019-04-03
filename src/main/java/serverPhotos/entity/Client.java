@@ -30,9 +30,11 @@ public class Client {
     @Column(name = "level")
     private Levels level;
 
+    //TODO Mapped ManyToMany
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id", nullable = false,  insertable = false, updatable = false)
     private Coach coach;
+
     @Column
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     List<Training> trainingList;
