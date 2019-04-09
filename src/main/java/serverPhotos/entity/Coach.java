@@ -21,27 +21,15 @@ public class Coach {
     private String password;
 
 
-    //TODO Mapped ManyToMany
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "sportClub_id",nullable = false)
     private SportClub sportClub;
 
-    //TODO Mapped ManyToMany
-    @Column
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coach")
-    private List<Client> clients;
-
-    @Column
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coach")
-    List<Training> trainingList;
-
-    public Coach(String name, String login, String password, SportClub sportClub, List<Client> clients, List<Training> trainingList) {
+    public Coach(String name, String login, String password, SportClub sportClub) {
         this.name = name;
         this.login = login;
         this.password = password;
         this.sportClub = sportClub;
-        this.clients = clients;
-        this.trainingList = trainingList;
     }
 
     public Coach(){}
@@ -86,32 +74,5 @@ public class Coach {
         this.sportClub = sportClub;
     }
 
-    public List<Client> getClients() {
-        return clients;
-    }
 
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
-    }
-
-    public List<Training> getTrainingList() {
-        return trainingList;
-    }
-
-    public void setTrainingList(List<Training> trainingList) {
-        this.trainingList = trainingList;
-    }
-
-    @Override
-    public String toString() {
-        return "Coach{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", sportClub=" + sportClub +
-                ", clients=" + clients +
-                ", trainingList=" + trainingList +
-                '}';
-    }
 }

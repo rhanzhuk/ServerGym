@@ -32,9 +32,7 @@ public class CoachService {
             resultCoach.setLogin(coach.getLogin());
             resultCoach.setPassword(coach.getPassword());
             resultCoach.setName(coach.getName());
-            resultCoach.setClients(coach.getClients());
             resultCoach.setSportClub(coach.getSportClub());
-            resultCoach.setTrainingList(coach.getTrainingList());
 
             return coachRepository.saveAndFlush(resultCoach);
         }

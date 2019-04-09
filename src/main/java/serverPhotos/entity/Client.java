@@ -2,6 +2,7 @@ package serverPhotos.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import serverPhotos.entity.enums.Levels;
+import serverPhotos.entity.enums.Sex;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -9,21 +10,29 @@ import java.util.List;
 
 @Entity
 @Table (name = "client")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Client {
 
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     @Column(name = "id")
     private Long id;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
     @Column(name = "login")
     private String login;
     @Column(name = "password")
     private String password;
     @Column(name = "age")
     private int age;
+    @Column(name = "sex")
+    private Sex sex;
+    @Column(name = "phone")
+    private long phone;
+
+
     @Column(name = "email")
     @Email
     private String email;
@@ -39,20 +48,6 @@ public class Client {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     List<Training> trainingList;
 
-    public Client(String name, String login, String password, int age, String email, Levels level, Coach coach, List<Training> trainingList) {
-        this.name = name;
-        this.login = login;
-        this.password = password;
-        this.age = age;
-        this.email = email;
-        this.level = level;
-        this.coach = coach;
-        this.trainingList = trainingList;
-    }
-
-    public Client() {
-    }
-
     public Long getId() {
         return id;
     }
@@ -61,12 +56,20 @@ public class Client {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getLogin() {
@@ -91,6 +94,22 @@ public class Client {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(long phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -124,20 +143,4 @@ public class Client {
     public void setTrainingList(List<Training> trainingList) {
         this.trainingList = trainingList;
     }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", age=" + age +
-                ", email='" + email + '\'' +
-                ", level=" + level +
-                ", coach=" + coach +
-                ", trainingList=" + trainingList +
-                '}';
-    }
-
 }

@@ -30,7 +30,7 @@ public class ClientService {
         Client client = getClient(id);
 
         if(client != null){
-            client.setName(clientDetails.getName());
+            client.setFirstName(clientDetails.getFirstName());
             client.setAge(clientDetails.getAge());
             client.setLevel(clientDetails.getLevel());
             client.setCoach(clientDetails.getCoach());

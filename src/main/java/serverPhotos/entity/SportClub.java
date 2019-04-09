@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "sport_club")
@@ -20,11 +21,10 @@ public class SportClub {
     @Column(name = "description")
     private String description;
 
-    @Column
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sportClub")
-    private List<Coach> coaches;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sportClub")
+    private Set<Coach> coaches;
 
-    public SportClub(String name, String location, String description, List<Coach> coaches) {
+    public SportClub(String name, String location, String description, Set<Coach> coaches) {
         this.name = name;
         this.location = location;
         this.description = description;
@@ -65,11 +65,11 @@ public class SportClub {
         this.description = description;
     }
 
-    public List<Coach> getCoaches() {
+    public Set<Coach> getCoaches() {
         return coaches;
     }
 
-    public void setCoaches(List<Coach> coaches) {
+    public void setCoaches(Set<Coach> coaches) {
         this.coaches = coaches;
     }
 
@@ -80,7 +80,6 @@ public class SportClub {
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
-                ", coaches=" + coaches +
                 '}';
     }
 }

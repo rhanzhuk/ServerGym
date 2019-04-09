@@ -39,7 +39,7 @@ public class TrainingController {
         return trainingService.deleteTraining(training);
     }
 
-    @DeleteMapping("/training")
+    @DeleteMapping("/training/{id}")
     public void deleteTrainingById(@PathVariable(value = "id") Long id){
         trainingService.deletTrainingById(id);
     }
