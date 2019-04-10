@@ -31,7 +31,6 @@ public class Client {
     private Sex sex;
 
     @Column(name = "email")
-    @Email
     private String email;
 
     @Column(name = "phone")
@@ -52,7 +51,7 @@ public class Client {
     @Column (name = "role")
     private Role role;
 
-    public Client(String firstName, String lastName, int age, Sex sex, @Email String email, long phone, String login, String password, String photo, Levels level, Role role) {
+    public Client(String firstName, String lastName, int age, Sex sex,  String email, long phone, String login, String password, String photo, Levels level, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;

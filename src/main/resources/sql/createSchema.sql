@@ -15,7 +15,8 @@ CREATE TABLE client(
   password VARCHAR(50) NOT NULL ,
   photo VARCHAR(100) ,
   level ENUM ('JUNIOR','MIDDLE','SENIOR') NOT NULL ,
-  role ENUM ('ATHLETE', 'COACH', 'ADMIN') NOT NULL
+  role ENUM ('ATHLETE', 'COACH', 'ADMIN') NOT NULL,
+  trainingPlan_id BIGINT REFERENCES training_plan(id)
 )ENGINE=INNODB;
 
 CREATE TABLE coach(
@@ -30,7 +31,8 @@ CREATE TABLE coach(
   password VARCHAR(50) NOT NULL ,
   photo VARCHAR(100) ,
   role ENUM ('ATHLETE', 'COACH', 'ADMIN') NOT NULL,
-  sport_category ENUM ('GYM', 'FITNESS', 'RUN')
+  sport_category ENUM ('GYM', 'FITNESS', 'RUN'),
+  trainingPlan_id BIGINT REFERENCES training_plan(id)
 )ENGINE=INNODB;
 
 

@@ -16,8 +16,7 @@ public class Training {
     private Long id;
     @Column(name = "name")
     private String name;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "training")
-    private List<Series> seriesList;
+
     @Column(name = "training_date")
     private Date trainingDate;
 
@@ -29,9 +28,8 @@ public class Training {
     @JoinColumn(name = "coach_id", nullable = false, insertable = false, updatable = false)
     private Coach coach;
 
-    public Training(String name, List<Series> seriesList, Date trainingDate, Client client, Coach coach) {
+    public Training(String name, Date trainingDate, Client client, Coach coach) {
         this.name = name;
-        this.seriesList = seriesList;
         this.trainingDate = trainingDate;
         this.client = client;
         this.coach = coach;
@@ -53,14 +51,6 @@ public class Training {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Series> getSeriesList() {
-        return seriesList;
-    }
-
-    public void setSeriesList(List<Series> seriesList) {
-        this.seriesList = seriesList;
     }
 
     public Date getTrainingDate() {
@@ -92,7 +82,6 @@ public class Training {
         return "Training{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", seriesList=" + seriesList +
                 ", trainingDate=" + trainingDate +
                 ", client=" + client +
                 ", coach=" + coach +
