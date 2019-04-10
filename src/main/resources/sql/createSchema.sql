@@ -65,7 +65,15 @@ CREATE TABLE  training(
   icon VARCHAR(100) NOT NULL ,
   comment_desc VARCHAR(1000) NOT NULL ,
   training_date DATE NOT NULL ,
-  chek BOOLEAN NOT NULL
+  chek BOOLEAN NOT NULL,
+  plan_id BIGINT REFERENCES training_plan(id)
+)ENGINE=INNODB;
+
+CREATE TABLE training_plan (
+  id         BIGINT      NOT NULL AUTO_INCREMENT PRIMARY KEY UNIQUE,
+  name       VARCHAR(50) NOT NULL,
+  start_date DATE,
+  length     INT
 )ENGINE=INNODB;
 
 
