@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
+//TODO Temp DONE
+
 @Entity
 @Table(name = "exercise")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -12,32 +14,45 @@ public class Exercise {
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "description")
     private String description;
-    //TODO временное решение линк на фото на сервере
-    //TODO просмотреть варианты работы с фото
+
     @Column(name = "icon")
     private String icon;
+
+    @Column(name = "weight")
+    private int weight;
+
+    @Column(name = "count")
+    private int count;
+
+    @Column(name = "repeats")
+    private int repeats;
+
     @Column(name = "youTube")
     private String youtubeLink;
 
+    @ManyToOne
+    @JoinColumn(name = "training_id")
+    private Training training;
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "exercise")
-    private Series series;
-
-    public Exercise(String name, String description, String icon, String youtubeLink, Series series) {
+    public Exercise(String name, String description, String icon, int weight, int count, int repeats, String youtubeLink, Training training) {
         this.name = name;
         this.description = description;
         this.icon = icon;
+        this.weight = weight;
+        this.count = count;
+        this.repeats = repeats;
         this.youtubeLink = youtubeLink;
-        this.series = series;
+        this.training = training;
     }
 
-    public Exercise() {}
+    public Exercise() {
+    }
 
     public Long getId() {
         return id;
@@ -71,6 +86,30 @@ public class Exercise {
         this.icon = icon;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getRepeats() {
+        return repeats;
+    }
+
+    public void setRepeats(int repeats) {
+        this.repeats = repeats;
+    }
+
     public String getYoutubeLink() {
         return youtubeLink;
     }
@@ -79,23 +118,11 @@ public class Exercise {
         this.youtubeLink = youtubeLink;
     }
 
-    public Series getSeries() {
-        return series;
+    public Training getTraining() {
+        return training;
     }
 
-    public void setSeries(Series series) {
-        this.series = series;
-    }
-
-    @Override
-    public String toString() {
-        return "Exercise{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", icon='" + icon + '\'' +
-                ", youtubeLink='" + youtubeLink + '\'' +
-                ", series=" + series +
-                '}';
+    public void setTraining(Training training) {
+        this.training = training;
     }
 }

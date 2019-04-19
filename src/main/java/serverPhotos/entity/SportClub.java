@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+//TODO DONE
+
 @Entity
 @Table(name = "sport_club")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -14,24 +16,32 @@ public class SportClub {
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "location")
     private String location;
+
     @Column(name = "description")
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sportClub")
-    private Set<Coach> coaches;
+    @ManyToMany
+    @JoinTable(
+            name = "coach_sportClub",
+            joinColumns = @JoinColumn(name = "sportClub_id"),
+            inverseJoinColumns = @JoinColumn(name = "coach_id"))
+    private Set<Coach> coachSet;
 
-    public SportClub(String name, String location, String description, Set<Coach> coaches) {
+    public SportClub(String name, String location, String description, Set<Coach> coachSet) {
         this.name = name;
         this.location = location;
         this.description = description;
-        this.coaches = coaches;
+        this.coachSet = coachSet;
     }
 
-    public SportClub(){}
+    public SportClub() {
+    }
 
     public Long getId() {
         return id;
@@ -65,21 +75,11 @@ public class SportClub {
         this.description = description;
     }
 
-    public Set<Coach> getCoaches() {
-        return coaches;
+    public Set<Coach> getCoachSet() {
+        return coachSet;
     }
 
-    public void setCoaches(Set<Coach> coaches) {
-        this.coaches = coaches;
-    }
-
-    @Override
-    public String toString() {
-        return "SportClub{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+    public void setCoachSet(Set<Coach> coachSet) {
+        this.coachSet = coachSet;
     }
 }

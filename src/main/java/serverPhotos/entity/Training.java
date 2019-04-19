@@ -3,8 +3,11 @@ package serverPhotos.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+
+//TODO DONE
 
 @Entity
 @Table(name = "training")
@@ -14,28 +17,41 @@ public class Training {
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
+
     @Column(name = "name")
     private String name;
 
+    @Column(name = "icon")
+    private String icon;
+
+    @Column(name = "comment_desc")
+    private String comment;
+
     @Column(name = "training_date")
-    private Date trainingDate;
+    private LocalDate trainingDate;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "client_id", nullable = false,  insertable = false, updatable = false)
-    private Client client;
+    @Column(name = "check")
+    private boolean checkToDone;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "coach_id", nullable = false, insertable = false, updatable = false)
-    private Coach coach;
+    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
+    private List<Exercise> exerciseList;
 
-    public Training(String name, Date trainingDate, Client client, Coach coach) {
+    @ManyToOne
+    @JoinColumn(name = "plan_id")
+    private TrainingPlan trainingPlan;
+
+    public Training(String name, String icon, String comment, LocalDate trainingDate, boolean checkToDone, List<Exercise> exerciseList, TrainingPlan trainingPlan) {
         this.name = name;
+        this.icon = icon;
+        this.comment = comment;
         this.trainingDate = trainingDate;
-        this.client = client;
-        this.coach = coach;
+        this.checkToDone = checkToDone;
+        this.exerciseList = exerciseList;
+        this.trainingPlan = trainingPlan;
     }
 
-    public Training(){}
+    public Training() {
+    }
 
     public Long getId() {
         return id;
@@ -53,38 +69,51 @@ public class Training {
         this.name = name;
     }
 
-    public Date getTrainingDate() {
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public LocalDate getTrainingDate() {
         return trainingDate;
     }
 
-    public void setTrainingDate(Date trainingDate) {
+    public void setTrainingDate(LocalDate trainingDate) {
         this.trainingDate = trainingDate;
     }
 
-    public Client getClient() {
-        return client;
+    public boolean isCheckToDone() {
+        return checkToDone;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setCheckToDone(boolean checkToDone) {
+        this.checkToDone = checkToDone;
     }
 
-    public Coach getCoach() {
-        return coach;
+    public List<Exercise> getExerciseList() {
+        return exerciseList;
     }
 
-    public void setCoach(Coach coach) {
-        this.coach = coach;
+    public void setExerciseList(List<Exercise> exerciseList) {
+        this.exerciseList = exerciseList;
     }
 
-    @Override
-    public String toString() {
-        return "Training{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", trainingDate=" + trainingDate +
-                ", client=" + client +
-                ", coach=" + coach +
-                '}';
+    public TrainingPlan getTrainingPlan() {
+        return trainingPlan;
+    }
+
+    public void setTrainingPlan(TrainingPlan trainingPlan) {
+        this.trainingPlan = trainingPlan;
     }
 }

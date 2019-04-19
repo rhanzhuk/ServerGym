@@ -1,9 +1,15 @@
 package serverPhotos.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import serverPhotos.entity.enums.Role;
+import serverPhotos.entity.enums.Sex;
+import serverPhotos.entity.enums.SportCategory;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
+
+//TODO Create RelationShip with TrainingPlan
 
 @Entity
 @Table(name = "coach")
@@ -13,66 +19,50 @@ public class Coach {
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
-    @Column(name = "name")
-    private String name;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "sex")
+    private Sex sex;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone")
+    private String phone;
+
     @Column(name = "login")
     private String login;
+
     @Column (name = "password")
     private String password;
 
+    @Column (name = "photo")
+    private String photo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sportClub_id",nullable = false)
-    private SportClub sportClub;
+    @Column(name = "role")
+    private Role role;
 
-    public Coach(String name, String login, String password, SportClub sportClub) {
-        this.name = name;
-        this.login = login;
-        this.password = password;
-        this.sportClub = sportClub;
-    }
+    @Column(name = "sport_category")
+    private SportCategory sportCategory;
 
-    public Coach(){}
+    @ManyToMany
+    @JoinTable(
+            name = "coach_client",
+            joinColumns = @JoinColumn(name = "coach_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id"))
+    private Set<Client> clientsSet;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String pessword) {
-        this.password = pessword;
-    }
-
-    public SportClub getSportClub() {
-        return sportClub;
-    }
-
-    public void setSportClub(SportClub sportClub) {
-        this.sportClub = sportClub;
-    }
+    @ManyToMany(mappedBy = "coachSet")
+    private Set<SportClub> sportClubSet;
 
 
 }

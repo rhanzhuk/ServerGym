@@ -11,36 +11,8 @@ import java.util.List;
 @RestController
 public class SportClubController {
 
-    @Autowired
-    SportClubService sportClubService;
-
-    @GetMapping("/sportClub/{id}")
-    public SportClub getSportClub(@PathVariable(value = "id") Long id){
-        return sportClubService.getSportClub(id);
+    @GetMapping(name = "/hello")
+    public String getHello(){
+        return "Hello world";
     }
-
-    @GetMapping("/sportClubs")
-    public List<SportClub> getAllSportClubs(){
-        return sportClubService.getAll();
-    }
-
-    @PostMapping("/sportClub")
-    public SportClub saveSportClub(@Valid @RequestBody SportClub sportClub){
-        return sportClubService.saveSportClub(sportClub);
-    }
-
-    @PutMapping("/sportClubs/{id}")
-    public SportClub updateSportClub(@PathVariable(value = "id")Long id, @Valid @RequestBody SportClub sportClub){
-        return sportClubService.updateSportClub(id, sportClub);
-    }
-
-    @DeleteMapping("/sportClub")
-    public SportClub deleteSportClub(@Valid @RequestBody SportClub sportClub){
-        return sportClubService.deleteSportClub(sportClub);
-    }
-
-    @DeleteMapping("/sportClub/{id}")
-    public void deleteSportClubById(@PathVariable(value = "id") Long id){
-        sportClubService.deleteSportClubById(id);
-    }
-}
+   }
