@@ -96,6 +96,21 @@ CREATE TABLE coach_sportClub(
   FOREIGN KEY (sportClub_id) REFERENCES sport_club (id) ON DELETE RESTRICT ON UPDATE CASCADE
 )ENGINE=INNODB;
 
+-- Many to Many client and trainingPlan
+CREATE TABLE client_trainingPlan(
+  client_id BIGINT NOT NULL ,
+  trainingPlan_id BIGINT NOT NULL ,
+  FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE RESTRICT ON UPDATE CASCADE ,
+  FOREIGN KEY (trainingPlan_id) REFERENCES training_plan (id) ON DELETE RESTRICT ON UPDATE CASCADE
+)ENGINE=INNODB;
+
+-- Many to Many coach and trainingPlan
+CREATE TABLE client_trainingPlan(
+  coach_id BIGINT NOT NULL ,
+  trainingPlan_id BIGINT NOT NULL ,
+  FOREIGN KEY (coach_id) REFERENCES coach (id) ON DELETE RESTRICT ON UPDATE CASCADE ,
+  FOREIGN KEY (trainingPlan_id) REFERENCES training_plan (id) ON DELETE RESTRICT ON UPDATE CASCADE
+)ENGINE=INNODB;
 
 
 

@@ -5,6 +5,7 @@ import serverPhotos.entity.enums.Role;
 import serverPhotos.entity.enums.Sex;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 //TODO RelationShip with TrainingPlan
@@ -54,8 +55,15 @@ public class Client {
     @ManyToMany(mappedBy = "clientsSet")
     private Set<Coach> coachSet;
 
+    @ManyToMany
+    @JoinTable(
+            name = "client_trainingPlan",
+            joinColumns = @JoinColumn(name = "client_id"),
+            inverseJoinColumns = @JoinColumn(name = "trainingPlan_id"))
+    private List<TrainingPlan> trainingPlans;
 
-    public Client(String firstName, String lastName, int age, Sex sex,  String email, long phone, String login, String password, String photo, Levels level, Role role) {
+
+    public Client(String firstName, String lastName, int age, Sex sex, String email, long phone, String login, String password, String photo, Levels level, Role role, Set<Coach> coachSet, List<TrainingPlan> trainingPlans) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -67,6 +75,8 @@ public class Client {
         this.photo = photo;
         this.level = level;
         this.role = role;
+        this.coachSet = coachSet;
+        this.trainingPlans = trainingPlans;
     }
 
     public Client() {
@@ -174,5 +184,13 @@ public class Client {
 
     public void setCoachSet(Set<Coach> coachSet) {
         this.coachSet = coachSet;
+    }
+
+    public List<TrainingPlan> getTrainingPlans() {
+        return trainingPlans;
+    }
+
+    public void setTrainingPlans(List<TrainingPlan> trainingPlans) {
+        this.trainingPlans = trainingPlans;
     }
 }

@@ -24,11 +24,19 @@ public class TrainingPlan {
     @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL)
     private List<Training> trainingList;
 
-    public TrainingPlan(String name, LocalDate startDay, int lenght, List<Training> trainingList) {
+    @ManyToMany(mappedBy = "trainingPlans")
+    private List<Coach> coachList;
+
+    @ManyToMany(mappedBy = "trainingPlans")
+    private List<Client> clientList;
+
+    public TrainingPlan(String name, LocalDate startDay, int lenght, List<Training> trainingList, List<Coach> coachList, List<Client> clientList) {
         this.name = name;
         this.startDay = startDay;
         this.lenght = lenght;
         this.trainingList = trainingList;
+        this.coachList = coachList;
+        this.clientList = clientList;
     }
 
     public TrainingPlan() {
@@ -72,5 +80,21 @@ public class TrainingPlan {
 
     public void setTrainingList(List<Training> trainingList) {
         this.trainingList = trainingList;
+    }
+
+    public List<Coach> getCoachList() {
+        return coachList;
+    }
+
+    public void setCoachList(List<Coach> coachList) {
+        this.coachList = coachList;
+    }
+
+    public List<Client> getClientList() {
+        return clientList;
+    }
+
+    public void setClientList(List<Client> clientList) {
+        this.clientList = clientList;
     }
 }
