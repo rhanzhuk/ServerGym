@@ -9,11 +9,9 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-//TODO Create RelationShip with TrainingPlan
-
 @Entity
 @Table(name = "coach")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Coach {
 
     @Id

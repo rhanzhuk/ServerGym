@@ -6,8 +6,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-//TODO DONE
-
 @Entity
 @Table(name = "training")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

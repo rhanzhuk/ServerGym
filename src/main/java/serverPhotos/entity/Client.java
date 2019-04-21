@@ -8,8 +8,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-//TODO RelationShip with TrainingPlan
-
 @Entity
 @Table (name = "client")
 public class Client {
@@ -35,7 +33,7 @@ public class Client {
     private String email;
 
     @Column(name = "phone")
-    private long phone;
+    private String phone;
 
     @Column(name = "login")
     private String login;
@@ -63,7 +61,7 @@ public class Client {
     private List<TrainingPlan> trainingPlans;
 
 
-    public Client(String firstName, String lastName, int age, Sex sex, String email, long phone, String login, String password, String photo, Levels level, Role role, Set<Coach> coachSet, List<TrainingPlan> trainingPlans) {
+    public Client(String firstName, String lastName, int age, Sex sex, String email, String phone, String login, String password, String photo, Levels level, Role role, Set<Coach> coachSet, List<TrainingPlan> trainingPlans) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -130,11 +128,11 @@ public class Client {
         this.email = email;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
