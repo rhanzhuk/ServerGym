@@ -1,48 +1,92 @@
 package serverPhotos.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import serverPhotos.entity.enums.Role;
+import serverPhotos.entity.enums.Sex;
+import serverPhotos.entity.enums.SportCategory;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "coach")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Coach {
 
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
-    @Column(name = "name")
-    private String name;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "sex")
+    private Sex sex;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone")
+    private String phone;
+
     @Column(name = "login")
     private String login;
+
     @Column (name = "password")
     private String password;
 
+    @Column (name = "photo")
+    private String photo;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
-    private SportClub sportClub;
+    @Column(name = "role")
+    private Role role;
 
-    @Column
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coach")
-    private List<Client> clients;
+    @Column(name = "sport_category")
+    private SportCategory sportCategory;
 
-    @Column
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coach")
-    List<Training> trainingList;
+    @ManyToMany
+    @JoinTable(
+            name = "coach_client",
+            joinColumns = @JoinColumn(name = "coach_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id"))
+    private Set<Client> clientsSet;
 
-    public Coach(String name, String login, String password, SportClub sportClub, List<Client> clients, List<Training> trainingList) {
-        this.name = name;
+    @ManyToMany(mappedBy = "coachSet")
+    private Set<SportClub> sportClubSet;
+
+    @ManyToMany
+    @JoinTable(
+            name = "coach_trainingPlan",
+            joinColumns = @JoinColumn(name = "coach_id"),
+            inverseJoinColumns = @JoinColumn(name = "trainingPlan_id"))
+    private List<TrainingPlan> trainingPlans;
+
+    public Coach(String firstName, String lastName, int age, Sex sex, String email, String phone, String login, String password, String photo, Role role, SportCategory sportCategory, Set<Client> clientsSet, Set<SportClub> sportClubSet, List<TrainingPlan> trainingPlans) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.sex = sex;
+        this.email = email;
+        this.phone = phone;
         this.login = login;
         this.password = password;
-        this.sportClub = sportClub;
-        this.clients = clients;
-        this.trainingList = trainingList;
+        this.photo = photo;
+        this.role = role;
+        this.sportCategory = sportCategory;
+        this.clientsSet = clientsSet;
+        this.sportClubSet = sportClubSet;
+        this.trainingPlans = trainingPlans;
     }
 
-    public Coach(){}
+    public Coach() {
+    }
 
     public Long getId() {
         return id;
@@ -52,12 +96,52 @@ public class Coach {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getLogin() {
@@ -72,44 +156,55 @@ public class Coach {
         return password;
     }
 
-    public void setPassword(String pessword) {
-        this.password = pessword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public SportClub getSportClub() {
-        return sportClub;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setSportClub(SportClub sportClub) {
-        this.sportClub = sportClub;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    public List<Client> getClients() {
-        return clients;
+    public Role getRole() {
+        return role;
     }
 
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public List<Training> getTrainingList() {
-        return trainingList;
+    public SportCategory getSportCategory() {
+        return sportCategory;
     }
 
-    public void setTrainingList(List<Training> trainingList) {
-        this.trainingList = trainingList;
+    public void setSportCategory(SportCategory sportCategory) {
+        this.sportCategory = sportCategory;
     }
 
-    @Override
-    public String toString() {
-        return "Coach{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", sportClub=" + sportClub +
-                ", clients=" + clients +
-                ", trainingList=" + trainingList +
-                '}';
+    public Set<Client> getClientsSet() {
+        return clientsSet;
+    }
+
+    public void setClientsSet(Set<Client> clientsSet) {
+        this.clientsSet = clientsSet;
+    }
+
+    public Set<SportClub> getSportClubSet() {
+        return sportClubSet;
+    }
+
+    public void setSportClubSet(Set<SportClub> sportClubSet) {
+        this.sportClubSet = sportClubSet;
+    }
+
+    public List<TrainingPlan> getTrainingPlans() {
+        return trainingPlans;
+    }
+
+    public void setTrainingPlans(List<TrainingPlan> trainingPlans) {
+        this.trainingPlans = trainingPlans;
     }
 }
