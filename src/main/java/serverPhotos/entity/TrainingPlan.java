@@ -18,7 +18,8 @@ public class TrainingPlan {
     @Column(name = "start_date")
     private LocalDate startDay;
 
-    @Column(name = "lenght")
+    //TODO rename length
+    @Column(name = "length")
     private int lenght;
 
     @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL)

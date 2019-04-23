@@ -1,5 +1,7 @@
 package serverPhotos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.boot.jackson.JsonComponent;
 import serverPhotos.entity.enums.Levels;
 import serverPhotos.entity.enums.Role;
 import serverPhotos.entity.enums.Sex;
@@ -10,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table (name = "client")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Client {
 
     @Id
@@ -27,6 +30,7 @@ public class Client {
     private int age;
 
     @Column(name = "sex")
+    @Enumerated(EnumType.STRING)
     private Sex sex;
 
     @Column(name = "email")
@@ -45,15 +49,17 @@ public class Client {
     private String photo;
 
     @Column(name = "level")
+    @Enumerated(EnumType.STRING)
     private Levels level;
 
     @Column (name = "role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToMany(mappedBy = "clientsSet")
+    @ManyToMany(mappedBy = "clientsSet",fetch = FetchType.EAGER)
     private Set<Coach> coachSet;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "client_trainingPlan",
             joinColumns = @JoinColumn(name = "client_id"),
@@ -191,4 +197,5 @@ public class Client {
     public void setTrainingPlans(List<TrainingPlan> trainingPlans) {
         this.trainingPlans = trainingPlans;
     }
+
 }
