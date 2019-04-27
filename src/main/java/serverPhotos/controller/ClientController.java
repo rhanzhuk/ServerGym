@@ -17,13 +17,18 @@ public class ClientController {
 
     @GetMapping(path = "/client/{id}")
     public @ResponseBody Client getClient(@PathVariable(value = "id")Long id){
-        return clientService.getClient(id);
+        Client client = clientService.getClient(id);
+        System.out.println("THIS IS CLIENT ENTITY: " + client + "!!!!!!!!!!!!!!!!!!!!!!!!!");
+        return client;
     }
 
 
-    @GetMapping(path = "/clients",headers = "application/json")
+    @GetMapping(path = "/clients")
     public  List<Client> getAll(){
-        return clientService.getAll();
+        //TODO add one
+        List<Client> clients = clientService.getAll();
+        System.out.println("LENGHT OF LIST CLIENTS: " + clients.size() + "!!!!!!!!!!!!!!!!!!");
+        return clients;
     }
 
 

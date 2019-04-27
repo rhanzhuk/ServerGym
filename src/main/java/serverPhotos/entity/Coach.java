@@ -1,5 +1,6 @@
 package serverPhotos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import serverPhotos.entity.enums.Role;
 import serverPhotos.entity.enums.Sex;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "coach")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Coach {
 
     @Id
@@ -56,9 +57,11 @@ public class Coach {
             name = "coach_client",
             joinColumns = @JoinColumn(name = "coach_id"),
             inverseJoinColumns = @JoinColumn(name = "client_id"))
+    @JsonIgnore
     private Set<Client> clientsSet;
 
     @ManyToMany(mappedBy = "coachSet")
+    //@JsonIgnore
     private Set<SportClub> sportClubSet;
 
     @ManyToMany
@@ -66,9 +69,10 @@ public class Coach {
             name = "coach_trainingPlan",
             joinColumns = @JoinColumn(name = "coach_id"),
             inverseJoinColumns = @JoinColumn(name = "trainingPlan_id"))
-    private List<TrainingPlan> trainingPlans;
+    @JsonIgnore
+    private List<TrainingPlan> trainingPlan;
 
-    public Coach(String firstName, String lastName, int age, Sex sex, String email, String phone, String login, String password, String photo, Role role, SportCategory sportCategory, Set<Client> clientsSet, Set<SportClub> sportClubSet, List<TrainingPlan> trainingPlans) {
+    public Coach(String firstName, String lastName, int age, Sex sex, String email, String phone, String login, String password, String photo, Role role, SportCategory sportCategory, Set<Client> clientsSet, Set<SportClub> sportClubSet, List<TrainingPlan> trainingPlan) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -82,7 +86,7 @@ public class Coach {
         this.sportCategory = sportCategory;
         this.clientsSet = clientsSet;
         this.sportClubSet = sportClubSet;
-        this.trainingPlans = trainingPlans;
+        this.trainingPlan = trainingPlan;
     }
 
     public Coach() {
@@ -200,11 +204,11 @@ public class Coach {
         this.sportClubSet = sportClubSet;
     }
 
-    public List<TrainingPlan> getTrainingPlans() {
-        return trainingPlans;
+    public List<TrainingPlan> getTrainingPlan() {
+        return trainingPlan;
     }
 
-    public void setTrainingPlans(List<TrainingPlan> trainingPlans) {
-        this.trainingPlans = trainingPlans;
+    public void setTrainingPlan(List<TrainingPlan> trainingPlan) {
+        this.trainingPlan = trainingPlan;
     }
 }

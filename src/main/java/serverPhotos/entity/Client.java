@@ -1,6 +1,9 @@
 package serverPhotos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.boot.jackson.JsonComponent;
 import serverPhotos.entity.enums.Levels;
 import serverPhotos.entity.enums.Role;
@@ -57,6 +60,7 @@ public class Client {
     private Role role;
 
     @ManyToMany(mappedBy = "clientsSet",fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Coach> coachSet;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -64,6 +68,7 @@ public class Client {
             name = "client_trainingPlan",
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "trainingPlan_id"))
+    @JsonIgnore
     private List<TrainingPlan> trainingPlans;
 
 
@@ -198,4 +203,23 @@ public class Client {
         this.trainingPlans = trainingPlans;
     }
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", photo='" + photo + '\'' +
+                ", level=" + level +
+                ", role=" + role +
+                ", coachSet=" + coachSet +
+                ", trainingPlans=" + trainingPlans +
+                '}';
+    }
 }

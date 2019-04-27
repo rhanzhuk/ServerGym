@@ -27,22 +27,23 @@ public class Training {
     @Column(name = "training_date")
     private LocalDate trainingDate;
 
-    @Column(name = "check")
-    private boolean checkToDone;
+//    @Column(name = "check")
+//    private boolean checkToDone;
 
     @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
     private List<Exercise> exerciseList;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "plan_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private TrainingPlan trainingPlan;
 
-    public Training(String name, String icon, String comment, LocalDate trainingDate, boolean checkToDone, List<Exercise> exerciseList, TrainingPlan trainingPlan) {
+    public Training(String name, String icon, String comment, LocalDate trainingDate, /*boolean checkToDone,*/ List<Exercise> exerciseList, TrainingPlan trainingPlan) {
         this.name = name;
         this.icon = icon;
         this.comment = comment;
         this.trainingDate = trainingDate;
-        this.checkToDone = checkToDone;
+        //this.checkToDone = checkToDone;
         this.exerciseList = exerciseList;
         this.trainingPlan = trainingPlan;
     }
@@ -90,13 +91,14 @@ public class Training {
         this.trainingDate = trainingDate;
     }
 
-    public boolean isCheckToDone() {
-        return checkToDone;
-    }
-
-    public void setCheckToDone(boolean checkToDone) {
-        this.checkToDone = checkToDone;
-    }
+    //TODO разобраться с булевым значением
+//    public boolean isCheckToDone() {
+//        return checkToDone;
+//    }
+//
+//    public void setCheckToDone(boolean checkToDone) {
+//        this.checkToDone = checkToDone;
+//    }
 
     public List<Exercise> getExerciseList() {
         return exerciseList;

@@ -1,11 +1,14 @@
 package serverPhotos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "training_plan")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TrainingPlan {
 
     @Id
@@ -18,23 +21,23 @@ public class TrainingPlan {
     @Column(name = "start_date")
     private LocalDate startDay;
 
-    //TODO rename length
     @Column(name = "length")
-    private int lenght;
+    private int length;
 
-    @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Training> trainingList;
 
-    @ManyToMany(mappedBy = "trainingPlans")
+    @ManyToMany(mappedBy = "trainingPlan")
     private List<Coach> coachList;
 
     @ManyToMany(mappedBy = "trainingPlans")
     private List<Client> clientList;
 
-    public TrainingPlan(String name, LocalDate startDay, int lenght, List<Training> trainingList, List<Coach> coachList, List<Client> clientList) {
+    public TrainingPlan(String name, LocalDate startDay, int length, List<Training> trainingList, List<Coach> coachList, List<Client> clientList) {
         this.name = name;
         this.startDay = startDay;
-        this.lenght = lenght;
+        this.length = length;
         this.trainingList = trainingList;
         this.coachList = coachList;
         this.clientList = clientList;
@@ -67,12 +70,12 @@ public class TrainingPlan {
         this.startDay = startDay;
     }
 
-    public int getLenght() {
-        return lenght;
+    public int getLength() {
+        return length;
     }
 
-    public void setLenght(int lenght) {
-        this.lenght = lenght;
+    public void setLength(int length) {
+        this.length = length;
     }
 
     public List<Training> getTrainingList() {
