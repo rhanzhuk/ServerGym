@@ -18,9 +18,12 @@ public class ClientService {
        return clientRepository.getOne(id);
     }
 
-
     public List<Client> getAll(){
         return clientRepository.findAll();
+    }
+
+    public Client addClient(Client client){
+        return clientRepository.save(client);
     }
 
 }

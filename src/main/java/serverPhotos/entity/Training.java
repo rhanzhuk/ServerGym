@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "training")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Training {
 
     @Id
